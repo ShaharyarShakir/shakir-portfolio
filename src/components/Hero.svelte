@@ -70,21 +70,18 @@
   </div>
 
   <p class="hero-desc">
-    I build <strong class="st-text">scalable infrastructure</strong>,
-    <strong class="st-text">ML pipelines</strong>, and <strong>production apps</strong> — from cloud
+    I build <strong class="span-text">Scalable Infrastructure</strong>,
+    <strong class="span-text">ML Pipelines</strong>, and <strong>production apps</strong> — from cloud
     deployments to mobile. Clean code. Fast delivery.
   </p>
 </section>
 
 <style>
-@import 'tailwindcss';
+
   .hero {
     padding: 3rem 0 2rem;
   }
 
-.st-text {
-  @apply bg-gray-200 p-2;
-}
 
   .hero-role-line {
     display: flex;
