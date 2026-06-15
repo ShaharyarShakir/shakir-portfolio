@@ -1,86 +1,17 @@
-<h1>project</h1>
+<script lang="ts">
+  import ProjectGrid from "../components/ProjectGrid.svelte";
+  import {projects } from  "../lib/data/projects";
+</script>
 
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nemo quia
-  sit officiis reprehenderit deleniti omnis aliquam, quae a molestiae
-  consequuntur assumenda quos atque nisi, quasi minus? Architecto, sequi totam.
-</p>
+<h1 class="page-title">Projects</h1>
+<ProjectGrid {projects} />
 
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-/><br /><br /><br /><br /><br /><br />
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nemo quia
-  sit officiis reprehenderit deleniti omnis aliquam, quae a molestiae
-  consequuntur assumenda quos atque nisi, quasi minus? Architecto, sequi totam.
-</p>
-
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-/><br /><br /><br /><br /><br /><br />
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nemo quia
-  sit officiis reprehenderit deleniti omnis aliquam, quae a molestiae
-  consequuntur assumenda quos atque nisi, quasi minus? Architecto, sequi totam.
-</p>
-
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-/><br /><br /><br /><br /><br /><br />
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nemo quia
-  sit officiis reprehenderit deleniti omnis aliquam, quae a molestiae
-  consequuntur assumenda quos atque nisi, quasi minus? Architecto, sequi totam.
-</p>
-
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-/><br /><br /><br /><br /><br /><br />
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nemo quia
-  sit officiis reprehenderit deleniti omnis aliquam, quae a molestiae
-  consequuntur assumenda quos atque nisi, quasi minus? Architecto, sequi totam.
-</p>
-
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-/><br /><br /><br /><br /><br /><br />
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nemo quia
-  sit officiis reprehenderit deleniti omnis aliquam, quae a molestiae
-  consequuntur assumenda quos atque nisi, quasi minus? Architecto, sequi totam.
-</p>
-
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-/><br /><br /><br /><br /><br /><br />
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nemo quia
-  sit officiis reprehenderit deleniti omnis aliquam, quae a molestiae
-  consequuntur assumenda quos atque nisi, quasi minus? Architecto, sequi totam.
-</p>
-
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-/><br /><br /><br /><br /><br /><br />
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nemo quia
-  sit officiis reprehenderit deleniti omnis aliquam, quae a molestiae
-  consequuntur assumenda quos atque nisi, quasi minus? Architecto, sequi totam.
-</p>
-
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-/><br /><br /><br /><br /><br /><br />
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nemo quia
-  sit officiis reprehenderit deleniti omnis aliquam, quae a molestiae
-  consequuntur assumenda quos atque nisi, quasi minus? Architecto, sequi totam.
-</p>
-
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-/><br /><br /><br /><br /><br /><br />
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nemo quia
-  sit officiis reprehenderit deleniti omnis aliquam, quae a molestiae
-  consequuntur assumenda quos atque nisi, quasi minus? Architecto, sequi totam.
-</p>
-
-<br /><br />
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nemo quia
-  sit officiis reprehenderit deleniti omnis aliquam, quae a molestiae
-  consequuntur assumenda quos atque nisi, quasi minus? Architecto, sequi totam.
-</p>
+<style>
+  .page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin: 0 0 2rem;
+  }
+</style>
