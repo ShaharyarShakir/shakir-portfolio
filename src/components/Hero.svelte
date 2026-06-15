@@ -4,8 +4,9 @@
   const roles = [
     "DevOps Engineer",
     "MLOps Engineer",
-    "React Native Dev",
-    "Full Stack Dev",
+    "React Native Enginner",
+    "Full Stack Enginner",
+    "Freelance Contractor"
   ];
 
   let displayed = $state("");
@@ -51,7 +52,14 @@
 </script>
 
 <section class="hero">
-  <h1 class="hero-name">Shaharyar Shakir</h1>
+  <h1 class=" text-4xl
+        sm:text-5xl
+        lg:text-6xl
+        font-bold
+        tracking-tight
+        leading-tight
+        text-neutral-900
+               mb-4">Shaharyar Shakir</h1>
 
   <div class="hero-role-line">
     <span class="hero-role-prefix">I'm a</span>
@@ -62,25 +70,21 @@
   </div>
 
   <p class="hero-desc">
-    I build <strong>scalable infrastructure</strong>,
-    <strong>ML pipelines</strong>, and <strong>production apps</strong> — from cloud
+    I build <strong class="st-text">scalable infrastructure</strong>,
+    <strong class="st-text">ML pipelines</strong>, and <strong>production apps</strong> — from cloud
     deployments to mobile. Clean code. Fast delivery.
   </p>
 </section>
 
 <style>
+@import 'tailwindcss';
   .hero {
     padding: 3rem 0 2rem;
   }
 
-  .hero-name {
-    font-size: clamp(2.4rem, 6vw, 3.6rem);
-    font-weight: 700;
-    color: var(--text-primary);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin: 0 0 0.6rem;
-  }
+.st-text {
+  @apply bg-gray-200 p-2;
+}
 
   .hero-role-line {
     display: flex;
@@ -135,7 +139,6 @@
   .hero-desc {
     font-size: 1.05rem;
     line-height: 1.75;
-    color: var(--text-secondary);
     max-width: 520px;
     margin: 0;
   }
