@@ -14,20 +14,19 @@
 </script>
 
 <!-- Navbar -->
+ 
 <div
   class="top-0 right-0 left-0 z-50 fixed flex justify-center pointer-events-none"
 >
   <div class="px-4 pt-2 w-full max-w-4xl pointer-events-auto">
     <nav class={`navbar-base ${scrolled ? "navbar-glass" : "navbar-expanded"}`}>
       <!-- Logo -->
-      <a href="/" aria-label="Pixel avatar">
-        <canvas
-          class="rounded-full"
-          role="img"
-          width="53"
-          height="53"
-          style="width:40px;height:40px"
-        ></canvas>
+      <a href="/" aria-label="Home" class="nav-logo">
+        <img
+          src="/images/avatar.jpg"
+          alt="Shaharyar Shakir"
+          class="nav-avatar"
+        />
       </a>
 
       <!-- Desktop links -->
@@ -165,5 +164,57 @@
         />
       </svg>
     </a>
+ 
   </nav>
 </div>
+
+<style>
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+
+  .nav-avatar {
+    width: 53px;
+    height: 53px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid var(--border);
+    display: block;
+
+    /* entrance animation */
+    animation: avatar-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+
+    /* continuous subtle float */
+    animation: avatar-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+               float 4s ease-in-out 0.6s infinite;
+
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                border-color 0.2s ease,
+                box-shadow 0.3s ease;
+  }
+
+  .nav-avatar:hover {
+    transform: scale(1.12) rotate(4deg);
+    border-color: var(--text-muted);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  @keyframes avatar-in {
+    from {
+      opacity: 0;
+      transform: scale(0.6) rotate(-10deg);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px);   }
+    50%       { transform: translateY(-3px);  }
+  }
+</style>
