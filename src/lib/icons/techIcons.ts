@@ -1,0 +1,43 @@
+import {
+    SiSvelte,
+    SiReact,
+    SiTypescript,
+    SiPostgresql,
+    SiSupabase,
+    SiFastapi,
+    SiDocker,
+    SiKubernetes,
+    SiJenkins,
+    SiMongodb,
+    SiExpress,
+    SiNextdotjs,
+    SiPrisma,
+    SiMlflow,
+    SiDvc,
+    SiGooglechrome,
+    SiSocketdotio,
+    SiClerk,
+  } from "@icons-pack/svelte-simple-icons";
+  
+  export const techIcons = {
+    svelte: SiSvelte,
+    react: SiReact,
+    typescript: SiTypescript,
+    postgresql: SiPostgresql,
+    supabase: SiSupabase,
+    fastapi: SiFastapi,
+    docker: SiDocker,
+    kubernetes: SiKubernetes,
+    jenkins: SiJenkins,
+    mongodb: SiMongodb,
+    express: SiExpress,
+    nextjs: SiNextdotjs,
+    prisma: SiPrisma,
+    mlflow: SiMlflow,
+    dvc: SiDvc,
+    chrome: SiGooglechrome,
+    socketio: SiSocketdotio,
+    clerk: SiClerk,
+  } as const;
+  
+  export type TechIconKey = keyof typeof techIcons;
