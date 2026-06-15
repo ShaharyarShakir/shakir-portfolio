@@ -71,7 +71,9 @@ body {
     0 8px 32px rgba(0, 0, 0, 0.55),
     0 2px 8px rgba(0, 0, 0, 0.35);
 }
-
+.span-text {
+  @apply bg-gray-200 p-2 font-bold
+}
 .navbar-glass::before {
   content: '';
   position: absolute;
@@ -114,9 +116,9 @@ body {
   position: fixed;
   inset: 0;
   z-index: 40;
-  width: 100%;
+  /* width: 100%; */
   border: none;
-  background: transparent;
+  /* background: transparent; */
   pointer-events: none;
   transition: background 0.4s ease;
   cursor: default;
@@ -130,7 +132,7 @@ body {
 .drawer-panel {
   position: fixed;
   top: 0; right: 0;
-  width: min(72%, 300px);
+  width: min(100%, 300px);
   height: 100dvh;
   z-index: 50;
   display: flex;
