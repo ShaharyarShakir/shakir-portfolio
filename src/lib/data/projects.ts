@@ -92,17 +92,5 @@ export const projects: Project[] = [
       { icon: 'https://cdn.simpleicons.org/clerk', label: 'Clerk' },
     ],
     github: 'https://github.com/ShaharyarShakir/gossip',
-  },
-  {
-    image: '/images/projects/event-planner.png',
-    imageAlt: 'Event Planner screenshot',
-    title: 'Event Planner',
-    description: 'Full-stack event management with Next.js, Prisma, and PostgreSQL.',
-    techs: [
-      { icon: 'https://cdn.simpleicons.org/nextdotjs/000000', label: 'Next.js' },
-      { icon: 'https://cdn.simpleicons.org/prisma', label: 'Prisma' },
-      { icon: 'https://cdn.simpleicons.org/postgresql', label: 'PostgreSQL' },
-    ],
-    github: 'https://github.com/ShaharyarShakir/event-planner',
-  },
+  }
 ];
