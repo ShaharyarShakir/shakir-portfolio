@@ -2,18 +2,32 @@
 
   import Hero from "../components/Hero.svelte";
     import ProjectGrid from "../components/ProjectGrid.svelte";
+    import TechScroll from "../components/TechScroll.svelte";
     import {projects } from  "../lib/data/projects";
     import { p } from 'sv-router/generated';
  </script>
 
-<Hero />
-<section>
-  <div class="section-header">
-    <h2 class="section-title">selected work</h2>
-    <a href={p('/project')} class="see-all">see all →</a>
+
+  <Hero />
+  <div class="relative">
+  <div
+      class="top-0 left-0 absolute bg-linear-to-r from-gray-100 via-gray-500 to-gray-100 w-full h-px"
+    ></div>
+  <section>
+    <div class="section-header">
+      <h2 class="section-title">selected work</h2>
+      <a href={p('/project')} class="see-all">see all →</a>
+    </div>
+    <ProjectGrid {projects} limit={2} />
+  </section>
+  <div class="relative">
+    <div
+        class="top-0 left-0 absolute bg-linear-to-r from-gray-100 via-gray-500 to-gray-100 w-full h-px"
+      ></div>
+  <TechScroll />
   </div>
-  <ProjectGrid {projects} limit={2} />
-</section>
+  
+</div>
 
 <style>
   .section-header {
