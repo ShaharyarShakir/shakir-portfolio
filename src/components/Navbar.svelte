@@ -1,6 +1,7 @@
 <script lang="ts">
   import { p } from "sv-router/generated";
-
+  import ThemeToggle from "./ThemeToggle.svelte";
+  import "../lib/stores/theme";
   let { scrolled = false } = $props<{ scrolled?: boolean }>();
 
   let drawerOpen = $state(false);
@@ -14,7 +15,7 @@
 </script>
 
 <!-- Navbar -->
- 
+
 <div
   class="top-0 right-0 left-0 z-50 fixed flex justify-center pointer-events-none"
 >
@@ -35,44 +36,48 @@
         <a href={p("/project")}>Projects</a>
         <a href={p("/blog")}>Blog</a>
         <a href={p("/contact")}>Contact</a>
+        <ThemeToggle />
       </div>
 
       <!-- Mobile hamburger -->
-      <button
-        class="nav-menu-btn"
-        onclick={toggleDrawer}
-        aria-label="Open navigation"
-      >
-        <svg width="22" height="18" viewBox="0 0 22 18" fill="none">
-          <line
-            x1="1"
-            y1="3"
-            x2="21"
-            y2="3"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-          <line
-            x1="1"
-            y1="9"
-            x2="21"
-            y2="9"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-          <line
-            x1="1"
-            y1="15"
-            x2="21"
-            y2="15"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-        </svg>
-      </button>
+      <div class="md:hidden flex items-center gap-2">
+        <ThemeToggle />
+        <button
+          class="nav-menu-btn"
+          onclick={toggleDrawer}
+          aria-label="Open navigation"
+        >
+          <svg width="22" height="18" viewBox="0 0 22 18" fill="none">
+            <line
+              x1="1"
+              y1="3"
+              x2="21"
+              y2="3"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <line
+              x1="1"
+              y1="9"
+              x2="21"
+              y2="9"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <line
+              x1="1"
+              y1="15"
+              x2="21"
+              y2="15"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </div>
     </nav>
   </div>
 </div>
@@ -164,7 +169,6 @@
         />
       </svg>
     </a>
- 
   </nav>
 </div>
 
@@ -188,12 +192,14 @@
     animation: avatar-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 
     /* continuous subtle float */
-    animation: avatar-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both,
-               float 4s ease-in-out 0.6s infinite;
+    animation:
+      avatar-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+      float 4s ease-in-out 0.6s infinite;
 
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-                border-color 0.2s ease,
-                box-shadow 0.3s ease;
+    transition:
+      transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      border-color 0.2s ease,
+      box-shadow 0.3s ease;
   }
 
   .nav-avatar:hover {
@@ -214,7 +220,12 @@
   }
 
   @keyframes float {
-    0%, 100% { transform: translateY(0px);   }
-    50%       { transform: translateY(-3px);  }
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
   }
 </style>
