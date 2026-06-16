@@ -48,7 +48,6 @@ export const projects: Project[] = [
       { icon: 'https://cdn.simpleicons.org/jenkins', label: 'Jenkins' },
       { icon: 'https://cdn.simpleicons.org/docker', label: 'Docker' },
       { icon: 'https://cdn.simpleicons.org/kubernetes', label: 'Kubernetes' },
-      { icon: 'https://cdn.simpleicons.org/amazonaws', label: 'AWS' },
     ],
     href: 'https://github.com/ShaharyarShakir/vprofile-action',
     github: 'https://github.com/ShaharyarShakir/vprofile-action',
@@ -85,7 +84,7 @@ export const projects: Project[] = [
     image: '/images/projects/gossip.png',
     imageAlt: 'Gossip chat app screenshot',
     title: 'Gossip',
-    description: 'Real-time chat with Socket.io, Clerk auth, and MongoDB. Web and backend only.',
+    description: 'Real-time chat with Socket.io, Clerk auth, and MongoDB. Web and backend.',
     techs: [
       { icon: 'https://cdn.simpleicons.org/socketdotio/000000', label: 'Socket.io' },
       { icon: 'https://cdn.simpleicons.org/mongodb', label: 'MongoDB' },
