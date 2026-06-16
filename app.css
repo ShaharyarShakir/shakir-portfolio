@@ -71,10 +71,7 @@ body {
     0 8px 32px rgba(0, 0, 0, 0.55),
     0 2px 8px rgba(0, 0, 0, 0.35);
 }
-.span-text {
-  @apply bg-gray-200 p-2 font-bold
-}
-.navbar-glass::before {
+  .navbar-glass::before {
   content: '';
   position: absolute;
   top: 1px;
