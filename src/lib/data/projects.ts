@@ -12,6 +12,19 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    image: "/images/projects/sockploy.png",
+    imageAlt: 'Sockploy screenshot',
+    title: "Sockploy",
+    description: "A Docker container management platform with a web interface and reverse proxy capabilities.",
+    techs: [
+      {icon: 'https://cdn.simpleicons.org/node.js', label: 'Node.js'},
+      {icon: 'https://cdn.simpleicons.org/express', label: 'Express'},
+      {icon: 'https://cdn.simpleicons.org/docker', label: 'Docker'},
+      ],
+    href: "https://github.com/ShaharyarShakir/200-projects/tree/main/06__full-stack/sockploy",
+    github: "https://github.com/ShaharyarShakir/200-projects/tree/main/06__full-stack/sockploy",
+  },
+  {
     image: '/images/projects/sql-agent.png',
     imageAlt: 'Sql Agent screenshot',
     title: "Sql Agent",
