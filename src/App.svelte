@@ -2,8 +2,7 @@
   import { Router } from "sv-router";
   import Navbar from "./components/Navbar.svelte";
   import Footer from "./components/Footer.svelte";
-  const toggle = () => document.documentElement.classList.toggle('dark')
-  console.log(toggle);
+
   
   let scrollY = $state(0);
   const scrolled = $derived(scrollY > 50);
