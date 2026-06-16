@@ -63,10 +63,9 @@
   </div>
 
   <p class="hero-desc">
-    I build <span class="highlight highlight-text">Scalable Infrastructure</span
-    >,
-    <span class="highlight line highlight-text">ML pipelines</span>, and
-    <span class="highlight">production apps</span> — from cloud deployments to mobile.
+    I build <span class="highlight">Scalable Infrastructure</span>,
+    <span class="highlight">ML pipelines</span>, and
+    <span class="highlight">Production Apps</span> — from Cloud deployments to Mobile.
     Clean code. Fast delivery.
   </p>
 </section>
@@ -117,10 +116,7 @@
     font-weight: 600;
     color: var(--text-primary);
   }
-  .highlight-text {
-    background: gray;
-    padding: 4px;
-  }
+
   .cursor {
     display: inline-block;
     width: 2px;
@@ -148,14 +144,5 @@
     color: var(--text-secondary);
     max-width: 520px;
     margin: 0;
-  }
-
-  /* ── Fix: remove browser default highlight on strong ── */
-  .hero-desc :global(strong),
-  .hero-desc strong {
-    color: var(--text-primary);
-    font-weight: 600;
-    background: none; /* removes the white box in dark mode */
-    -webkit-text-fill-color: var(--text-primary);
   }
 </style>
