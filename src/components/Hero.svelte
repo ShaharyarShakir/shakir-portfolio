@@ -6,7 +6,7 @@
     "MLOps Engineer",
     "React Native Enginner",
     "Full Stack Enginner",
-    "Freelance Contractor"
+    "Freelance Contractor",
   ];
 
   let displayed = $state("");
@@ -52,14 +52,7 @@
 </script>
 
 <section class="hero">
-  <h1 class=" text-4xl
-        sm:text-5xl
-        lg:text-6xl
-        font-bold
-        tracking-tight
-        leading-tight
-        text-neutral-900
-               mb-4">Shaharyar Shakir</h1>
+  <h1 class="hero-name">Shaharyar Shakir</h1>
 
   <div class="hero-role-line">
     <span class="hero-role-prefix">I'm a</span>
@@ -70,18 +63,27 @@
   </div>
 
   <p class="hero-desc">
-    I build <strong class="span-text">Scalable Infrastructure</strong>,
-    <strong class="span-text">ML Pipelines</strong>, and <strong>production apps</strong> — from cloud
-    deployments to mobile. Clean code. Fast delivery.
+    I build <span class="highlight highlight-text">Scalable Infrastructure</span
+    >,
+    <span class="highlight line highlight-text">ML pipelines</span>, and
+    <span class="highlight">production apps</span> — from cloud deployments to mobile.
+    Clean code. Fast delivery.
   </p>
 </section>
 
 <style>
-
   .hero {
     padding: 3rem 0 2rem;
   }
 
+  .hero-name {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.6rem;
+  }
 
   .hero-role-line {
     display: flex;
@@ -105,13 +107,20 @@
     padding: 5px 16px;
     border-radius: 100px;
     border: 1.5px solid var(--border);
-    background: var(--bg-outer);
+    background: var(--bg-outer); /* uses theme token — dark/light auto */
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-primary); /* uses theme token */
     min-width: 190px;
   }
-
+  .highlight {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .highlight-text {
+    background: gray;
+    padding: 4px;
+  }
   .cursor {
     display: inline-block;
     width: 2px;
@@ -136,12 +145,17 @@
   .hero-desc {
     font-size: 1.05rem;
     line-height: 1.75;
+    color: var(--text-secondary);
     max-width: 520px;
     margin: 0;
   }
 
+  /* ── Fix: remove browser default highlight on strong ── */
+  .hero-desc :global(strong),
   .hero-desc strong {
     color: var(--text-primary);
     font-weight: 600;
+    background: none; /* removes the white box in dark mode */
+    -webkit-text-fill-color: var(--text-primary);
   }
 </style>
