@@ -99,7 +99,7 @@ export const projects: Project[] = [
     title: 'Gossip',
     description: 'Real-time chat with Socket.io, Clerk auth, and MongoDB. Web and backend.',
     techs: [
-      { icon: 'https://cdn.simpleicons.org/socketdotio/000000', label: 'Socket.io' },
+      { icon: 'https://cdn.simpleicons.org/socketdotio', label: 'Socket.io' },
       { icon: 'https://cdn.simpleicons.org/mongodb', label: 'MongoDB' },
       { icon: 'https://cdn.simpleicons.org/clerk', label: 'Clerk' },
     ],
