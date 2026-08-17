@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "highlight.js/styles/github-dark.css";
 
 /* ─── Core Theme Tokens ─────────────────────────────────────── */
 :root {
@@ -23,7 +24,15 @@
 body {
   background-color: var(--bg-outer);
   color: var(--text-primary);
+  overflow-x: hidden;
   transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+/* ─── Tech & Brand Icons Dark Mode Visibility ───────────────────── */
+.dark .tech-icon img,
+.dark .tech-pill img {
+  filter: brightness(0) invert(0.95);
+  transition: filter 0.3s ease;
 }
 
 /* ─── Navbar Utilities ──────────────────────────────────────── */
@@ -71,7 +80,8 @@ body {
     0 8px 32px rgba(0, 0, 0, 0.55),
     0 2px 8px rgba(0, 0, 0, 0.35);
 }
-  .navbar-glass::before {
+
+.navbar-glass::before {
   content: '';
   position: absolute;
   top: 1px;
@@ -89,9 +99,7 @@ body {
   pointer-events: none;
 }
 
-
-
-/* ─── Hamburger button (mobile only, static ≡) ─────────────── */
+/* ─── Hamburger button (mobile only) ───────────────────────── */
 .nav-menu-btn {
   background: none;
   border: none;
@@ -113,9 +121,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 40;
-  /* width: 100%; */
   border: none;
-  /* background: transparent; */
   pointer-events: none;
   transition: background 0.4s ease;
   cursor: default;
@@ -211,4 +217,3 @@ body {
 
 .drawer-links a:hover { color: var(--text-secondary); }
 .drawer-links a svg { opacity: 0.35; }
-
