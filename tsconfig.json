@@ -1,13 +1,14 @@
 {
-	"extends": ["./.router/tsconfig.json"],
+	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
-		"target": "ES2020",
-		"module": "preserve",
-		"moduleResolution": "bundler",
+		"allowJs": true,
+		"checkJs": true,
 		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
 		"strict": true,
-		"noEmit": true,
-		"verbatimModuleSyntax": true,
-		"skipLibCheck": true
+		"moduleResolution": "bundler"
 	}
 }
