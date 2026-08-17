@@ -3,6 +3,14 @@ import hljs from 'highlight.js';
 
 const renderer = new marked.Renderer();
 
+renderer.heading = ({ text, depth }: { text: string; depth: number }) => {
+  const slug = text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-');
+  return `<h${depth} id="${slug}">${text}</h${depth}>`;
+};
+
 renderer.code = ({ text, lang }: { text: string; lang?: string }) => {
   const language = lang && hljs.getLanguage(lang) ? lang : 'plaintext';
   const highlighted = hljs.highlight(text, { language }).value;
@@ -29,4 +37,26 @@ marked.setOptions({ renderer });
 
 export function parseMarkdown(md: string): string {
   return marked(md) as string;
+}
+
+export type TocItem = {
+  id: string;
+  text: string;
+  level: number;
+};
+
+export function extractToc(html: string): TocItem[] {
+  const headings: TocItem[] = [];
+  const regex = /<h([23])\s+id="([^"]+)">([\s\S]*?)<\/h[23]>/gi;
+  let match;
+
+  while ((match = regex.exec(html)) !== null) {
+    headings.push({
+      level: parseInt(match[1], 10),
+      id: match[2],
+      text: match[3].replace(/<[^>]+>/g, '').trim(),
+    });
+  }
+
+  return headings;
 }
