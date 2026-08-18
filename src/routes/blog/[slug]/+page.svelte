@@ -2,12 +2,9 @@
   import type { PageData } from './$types';
   import { toasts } from '$lib/stores/toast';
   import SEO from '../../../components/SEO.svelte';
-  import BlogSidebar from '../../../components/BlogSidebar.svelte';
-  import { extractToc } from '$lib/utils/parseMarkdown';
 
   let { data }: { data: PageData } = $props();
   const post = $derived(data.post);
-  const toc = $derived(post ? extractToc(post.html) : []);
 
   const blogPostJsonLd = $derived(
     post
@@ -62,8 +59,8 @@
     type="article"
     jsonLd={blogPostJsonLd}
   />
-  <div class="post-wrap">
-    <a href="/blog" class="post-back">
+  <div class="py-8 pb-16 max-w-2xl mx-auto relative">
+    <a href="/blog" class="inline-flex items-center gap-1.5 text-sm text-[var(--text-muted)] hover:text-[var(--text-primary)] no-underline mb-8 hover:-translate-x-1 transition-all duration-200">
       <svg
         width="16"
         height="16"
@@ -79,260 +76,40 @@
       all posts
     </a>
 
-    <header class="post-header">
-      <div class="post-meta">
-        <span class="post-date">
+    <header class="mb-10 pb-8 border-b border-[var(--border)]">
+      <div class="flex items-center gap-2 mb-3 text-xs text-[var(--text-muted)]">
+        <span>
           {new Date(post.date).toLocaleDateString("en-US", {
             month: "long",
             day: "numeric",
             year: "numeric",
           })}
         </span>
-        <span class="post-dot">·</span>
-        <span class="post-read">{post.readingTime} min read</span>
+        <span>·</span>
+        <span>{post.readingTime} min read</span>
       </div>
-      <h1 class="post-title">{post.title}</h1>
-      <p class="post-desc">{post.description}</p>
-      <div class="post-tags">
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-[var(--text-primary)] tracking-tight leading-snug mb-3">
+        {post.title}
+      </h1>
+      <p class="text-base leading-relaxed text-[var(--text-secondary)] mb-4">
+        {post.description}
+      </p>
+      <div class="flex flex-wrap gap-1.5">
         {#each post.tags as tag}
-          <span class="tag">{tag}</span>
+          <span class="badge badge-sm badge-outline text-xs px-2.5 py-1 text-[var(--text-muted)] border-[var(--border)]">
+            {tag}
+          </span>
         {/each}
       </div>
     </header>
 
-    <article class="post-content">
+    <article class="prose-article text-[var(--text-primary)]">
       {@html post.html}
     </article>
-
-    {#if toc.length > 0}
-      <BlogSidebar {toc} />
-    {/if}
   </div>
 {:else}
-  <div class="not-found">
+  <div class="py-12 text-[var(--text-muted)] text-sm">
     <p>post not found.</p>
-    <a href="/blog">← back to blog</a>
+    <a href="/blog" class="text-[var(--text-secondary)] underline">← back to blog</a>
   </div>
 {/if}
-
-<style>
-  .post-wrap {
-    padding: 2rem 0 4rem;
-    position: relative;
-    max-width: 720px;
-    margin: 0 auto;
-  }
-
-  .post-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    margin-bottom: 2rem;
-    transition:
-      color 0.2s,
-      gap 0.2s;
-  }
-  .post-back:hover {
-    color: var(--text-primary);
-    gap: 10px;
-  }
-
-  .post-header {
-    margin-bottom: 2.5rem;
-    padding-bottom: 2rem;
-    border-bottom: 0.5px solid var(--border);
-  }
-
-  .post-meta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 0.8rem;
-  }
-
-  .post-date,
-  .post-read {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-  }
-  .post-dot {
-    color: var(--border);
-  }
-
-  .post-title {
-    font-size: 1.9rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
-    line-height: 1.25;
-    margin: 0 0 0.7rem;
-  }
-
-  .post-desc {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin: 0 0 1rem;
-  }
-
-  .post-tags {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  .tag {
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    border: 0.5px solid var(--border);
-    border-radius: 4px;
-    padding: 2px 8px;
-    background: var(--bg-outer);
-  }
-
-  .post-content {
-    width: 100%;
-  }
-
-  .post-content :global(h2) {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 2.5rem 0 0.75rem;
-    scroll-margin-top: 100px;
-  }
-
-  .post-content :global(h3) {
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 2rem 0 0.6rem;
-    scroll-margin-top: 100px;
-  }
-
-  .post-content :global(p) {
-    font-size: 0.95rem;
-    line-height: 1.85;
-    color: var(--text-secondary);
-    margin: 0 0 1.2rem;
-  }
-
-  .post-content :global(a) {
-    color: var(--text-primary);
-    text-underline-offset: 3px;
-  }
-
-  .post-content :global(ul),
-  .post-content :global(ol) {
-    padding-left: 1.4rem;
-    margin: 0 0 1.2rem;
-  }
-
-  .post-content :global(li) {
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: var(--text-secondary);
-    margin-bottom: 0.3rem;
-  }
-
-  .post-content :global(blockquote) {
-    border-left: 2px solid var(--border);
-    margin: 1.5rem 0;
-    padding: 0.2rem 0 0.2rem 1.2rem;
-    color: var(--text-muted);
-    font-style: italic;
-  }
-
-  .post-content :global(.code-block) {
-    margin: 1.5rem 0;
-    border: 0.5px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .post-content :global(.code-header) {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 14px;
-    border-bottom: 0.5px solid var(--border);
-    background: var(--bg-outer);
-  }
-
-  .post-content :global(.code-lang) {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .post-content :global(.copy-btn) {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: none;
-    border: 0.5px solid var(--border);
-    border-radius: 5px;
-    padding: 3px 9px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-family: inherit;
-    transition:
-      color 0.2s,
-      border-color 0.2s;
-  }
-
-  .post-content :global(.copy-btn:hover) {
-    color: var(--text-primary);
-    border-color: var(--text-muted);
-  }
-
-  .post-content :global(.copy-btn.copied) {
-    color: #4ade80;
-    border-color: #4ade80;
-  }
-
-  .post-content :global(.code-block pre) {
-    margin: 0;
-    padding: 1rem 1.2rem;
-    overflow-x: auto;
-    background: #0d1117;
-  }
-
-  .post-content :global(.code-block code) {
-    font-family: "JetBrains Mono", "Fira Code", monospace;
-    font-size: 0.85rem;
-    line-height: 1.7;
-    background: none;
-    padding: 0;
-  }
-
-  .post-content :global(p code),
-  .post-content :global(li code) {
-    font-size: 0.82rem;
-    font-family: "JetBrains Mono", "Fira Code", monospace;
-    background: var(--bg-outer);
-    border: 0.5px solid var(--border);
-    border-radius: 4px;
-    padding: 1px 6px;
-    color: var(--text-primary);
-  }
-
-  .not-found {
-    padding: 3rem 0;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-  }
-
-  .not-found a {
-    color: var(--text-secondary);
-    text-decoration: none;
-  }
-</style>
