@@ -36,6 +36,6 @@ export default ts.config(
     }
   },
   {
-    ignores: ['build/', '.svelte-kit/', 'dist/', 'node_modules/', '*.zip']
+    ignores: ['build/', '.svelte-kit/', 'dist/', 'node_modules/', '*.zip', 'worker-configuration.d.ts']
   }
 );
