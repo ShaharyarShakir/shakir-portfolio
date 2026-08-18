@@ -2,129 +2,34 @@
   import { toasts } from '$lib/stores/toast';
 </script>
 
-<div class="toast-container" aria-live="polite">
+<div class="toast toast-end toast-bottom z-50 p-4 max-w-sm pointer-events-none" aria-live="polite">
   {#each $toasts as toast (toast.id)}
-    <div class={`toast-item toast-${toast.type ?? 'success'}`}>
+    <div
+      class={`alert shadow-xl pointer-events-auto flex items-center gap-3 backdrop-blur-xl border border-sky-300/40 dark:border-amber-400/20 ${
+        toast.type === 'info'
+          ? 'alert-info bg-indigo-950/80 text-indigo-100'
+          : 'alert-success bg-emerald-950/80 text-emerald-100'
+      }`}
+    >
       {#if toast.type === 'success'}
-        <svg
-          class="toast-icon"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400 shrink-0">
           <polyline points="20 6 9 17 4 12" />
         </svg>
       {:else}
-        <svg
-          class="toast-icon"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400 shrink-0">
           <circle cx="12" cy="12" r="10" />
           <line x1="12" y1="16" x2="12" y2="12" />
           <line x1="12" y1="8" x2="12.01" y2="8" />
         </svg>
       {/if}
-      <span class="toast-msg">{toast.message}</span>
+      <span class="text-sm font-medium flex-1">{toast.message}</span>
       <button
-        class="toast-close"
+        class="btn btn-ghost btn-xs btn-circle text-slate-400 hover:text-white"
         onclick={() => toasts.remove(toast.id)}
         aria-label="Dismiss notification"
       >
-        ×
+        ✕
       </button>
     </div>
   {/each}
 </div>
-
-<style>
-  .toast-container {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    pointer-events: none;
-    max-width: 360px;
-  }
-
-  .toast-item {
-    pointer-events: auto;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 11px 16px;
-    border-radius: 12px;
-    border: 0.5px solid var(--border);
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(16px) saturate(1.8);
-    -webkit-backdrop-filter: blur(16px) saturate(1.8);
-    box-shadow:
-      0 10px 30px rgba(0, 0, 0, 0.1),
-      0 1px 3px rgba(0, 0, 0, 0.05);
-    color: var(--text-primary);
-    font-size: 0.85rem;
-    font-weight: 500;
-    animation: toast-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-  }
-
-  :global(.dark) .toast-item {
-    background: rgba(20, 20, 22, 0.85);
-    box-shadow:
-      0 10px 30px rgba(0, 0, 0, 0.5),
-      0 1px 3px rgba(0, 0, 0, 0.3);
-  }
-
-  .toast-success .toast-icon {
-    color: #22c55e;
-  }
-
-  .toast-info .toast-icon {
-    color: #6366f1;
-  }
-
-  .toast-msg {
-    flex: 1;
-    line-height: 1.4;
-  }
-
-  .toast-close {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    cursor: pointer;
-    line-height: 1;
-    padding: 0 2px;
-    transition: color 0.2s ease;
-  }
-
-  .toast-close:hover {
-    color: var(--text-primary);
-  }
-
-  @keyframes toast-in {
-    from {
-      opacity: 0;
-      transform: translateY(16px) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-</style>
