@@ -1,10 +1,4 @@
-export interface SocialLink {
-  label: string;
-  handle: string;
-  href: string;
-  desc: string;
-  icon: string;
-}
+import type { SocialLink } from '$lib/types';
 
 export const socialsData: SocialLink[] = [
   {

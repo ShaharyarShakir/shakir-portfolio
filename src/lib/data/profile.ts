@@ -1,31 +1,10 @@
-export interface TimelineEntry {
-  year: string;
-  title: string;
-  body: string;
-  tags: string[];
-}
-
-export interface CurrentlyItem {
-  key: string;
-  val: string;
-}
-
-export interface ProfileData {
-  name: string;
-  role: string;
-  location: string;
-  lead: string;
-  github: string;
-  linkedin: string;
-  timeline: TimelineEntry[];
-  currently: CurrentlyItem[];
-}
+import type { ProfileData } from '$lib/types';
 
 export const profileData: ProfileData = {
   name: "Shaharyar Shakir",
   role: "CS Student & Hands-on Builder",
   location: "Pakistan 🇵🇰",
-  lead: "I'm Shaharyar — a CS student and hands-on builder based in pakistan. I work across DevOps, MLOps, Full-Stack Web, and React Native. I care about shipping real things, not collecting certificates.",
+  lead: "I'm Shaharyar — a CS student and hands-on builder based in Pakistan. I work across DevOps, MLOps, Full-Stack Web, and React Native. I care about shipping real things, not collecting certificates.",
   github: "https://github.com/ShaharyarShakir",
   linkedin: "https://linkedin.com/in/shaharyar-shakir-3674a027b",
   timeline: [
@@ -62,7 +41,7 @@ export const profileData: ProfileData = {
   ],
   currently: [
     { key: 'Studying', val: 'BS CS — 2028' },
-    { key: 'Building', val: '200 projects repo' },
+    { key: 'Building', val: 'SaaS product' },
     { key: 'Targeting', val: 'Remote roles & Internships' },
     { key: 'Location', val: 'Pakistan 🇵🇰' },
   ],
