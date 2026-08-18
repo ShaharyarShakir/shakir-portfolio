@@ -1,11 +1,12 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
+  import { animateCardEntrance } from "$lib/animations/gsap";
 
   const roles = [
     "DevOps Engineer",
     "MLOps Engineer",
-    "React Native Enginner",
-    "Full Stack Enginner",
+    "React Native Engineer",
+    "Full Stack Engineer",
     "Freelance Contractor",
   ];
 
@@ -47,102 +48,30 @@
 
   onMount(() => {
     timer = setTimeout(tick, 500);
+    animateCardEntrance(".hero-section");
   });
   onDestroy(() => clearTimeout(timer));
 </script>
 
-<section class="hero">
-  <h1 class="hero-name">Shaharyar Shakir</h1>
+<section class="hero-section flex flex-col py-12">
+  <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[var(--text-primary)] tracking-tight leading-tight mb-3">
+    Shaharyar Shakir
+  </h1>
 
-  <div class="hero-role-line">
-    <span class="hero-role-prefix">I'm a</span>
-    <span class="hero-role-badge">
+  <div class="flex items-center gap-3 mb-6 min-h-10">
+    <span class="text-base text-[var(--text-muted)] font-normal whitespace-nowrap">I'm a</span>
+    <span
+      class="inline-flex items-center gap-1.5 py-1.5 px-4 rounded-full bg-[var(--bg-card)] backdrop-blur-md border border-[var(--border)] text-[var(--text-primary)] text-sm font-semibold shadow-sm min-w-48"
+    >
       <span>{displayed}</span>
-      <span class="cursor" aria-hidden="true"></span>
+      <span class="inline-block w-0.5 h-4 bg-[var(--text-primary)] animate-pulse ml-0.5"></span>
     </span>
   </div>
 
-  <p class="hero-desc">
-    I build <span class="highlight">Scalable Infrastructure</span>,
-    <span class="highlight">ML pipelines</span>, and
-    <span class="highlight">Production Apps</span> — from Cloud deployments to Mobile.
+  <p class="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-xl m-0">
+    I build <span class="font-semibold text-[var(--text-primary)]">Scalable Infrastructure</span>,
+    <span class="font-semibold text-[var(--text-primary)]">ML pipelines</span>, and
+    <span class="font-semibold text-[var(--text-primary)]">Production Apps</span> — from Cloud deployments to Mobile.
     Clean code. Fast delivery.
   </p>
 </section>
-
-<style>
-  .hero {
-    padding: 3rem 0 2rem;
-  }
-
-  .hero-name {
-    font-size: clamp(2.4rem, 6vw, 3.6rem);
-    font-weight: 700;
-    color: var(--text-primary);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin: 0 0 0.6rem;
-  }
-
-  .hero-role-line {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 1.6rem;
-    min-height: 40px;
-  }
-
-  .hero-role-prefix {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    font-weight: 400;
-    white-space: nowrap;
-  }
-
-  .hero-role-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 5px 16px;
-    border-radius: 100px;
-    border: 1.5px solid var(--border);
-    background: var(--bg-outer); /* uses theme token — dark/light auto */
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--text-primary); /* uses theme token */
-    min-width: 190px;
-  }
-  .highlight {
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-
-  .cursor {
-    display: inline-block;
-    width: 2px;
-    height: 1em;
-    background: var(--text-primary);
-    margin-left: 1px;
-    vertical-align: middle;
-    animation: blink 0.8s step-end infinite;
-    flex-shrink: 0;
-  }
-
-  @keyframes blink {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-  }
-
-  .hero-desc {
-    font-size: 1.05rem;
-    line-height: 1.75;
-    color: var(--text-secondary);
-    max-width: 520px;
-    margin: 0;
-  }
-</style>
