@@ -20,142 +20,28 @@
     { icon: 'https://cdn.simpleicons.org/git', label: 'Git' },
   ];
 
-  // duplicate for seamless loop
   const track = [...techs, ...techs];
 </script>
 
-<section class="tech-section">
-  <p class="tech-label">stack</p>
+<section class="my-12">
+  <p class="text-xs font-semibold tracking-widest uppercase text-slate-500 dark:text-slate-400 mb-5">
+    stack
+  </p>
 
-  <div class="scroll-wrap">
-    <!-- left + right blur masks -->
-    <div class="fade fade-left"></div>
-    <div class="fade fade-right"></div>
+  <div class="relative overflow-hidden">
+    <!-- left + right blur gradient masks -->
+    <div class="absolute top-0 bottom-0 left-0 w-28 z-10 pointer-events-none bg-gradient-to-r from-slate-100 dark:from-slate-950 to-transparent"></div>
+    <div class="absolute top-0 bottom-0 right-0 w-28 z-10 pointer-events-none bg-gradient-to-l from-slate-100 dark:from-slate-950 to-transparent"></div>
 
-    <div class="scroll-track">
+    <div class="flex gap-2.5 w-max py-2 animate-scroll-left hover:[animation-play-state:paused]">
       {#each track as tech}
-        <div class="tech-pill group">
-          <img src={tech.icon} alt={tech.label} width="20" height="20" />
-          <span>{tech.label}</span>
+        <div
+          class="badge badge-lg gap-2 py-3 px-3.5 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-sky-300/40 dark:border-amber-400/20 text-slate-800 dark:text-slate-200 font-semibold shadow-xs hover:-translate-y-1 hover:scale-105 hover:border-indigo-400 dark:hover:border-amber-400 transition-all duration-300 group cursor-default"
+        >
+          <img src={tech.icon} alt={tech.label} width="18" height="18" class="rounded group-hover:rotate-6 group-hover:scale-115 transition-transform" />
+          <span class="text-xs tracking-wide">{tech.label}</span>
         </div>
       {/each}
     </div>
   </div>
 </section>
-
-<style>
-  .tech-section {
-    margin: 3rem 0;
-  }
-
-  .tech-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin: 0 0 1.25rem;
-  }
-
-  /* ── Outer wrapper ── */
-  .scroll-wrap {
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* ── Fade masks ── */
-  .fade {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 120px;
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  .fade-left {
-    left: 0;
-    background: linear-gradient(
-      to right,
-      var(--bg-card) 0%,
-      transparent 100%
-    );
-  }
-
-  .fade-right {
-    right: 0;
-    background: linear-gradient(
-      to left,
-      var(--bg-card) 0%,
-      transparent 100%
-    );
-  }
-
-  /* ── Scrolling track ── */
-  .scroll-track {
-    display: flex;
-    gap: 10px;
-    width: max-content;
-    padding: 8px 0;
-    animation: scroll-left 28s linear infinite;
-  }
-
-  .scroll-track:hover {
-    animation-play-state: paused;
-  }
-
-  @keyframes scroll-left {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-
-  /* ── Individual pill ── */
-  .tech-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 14px;
-    border-radius: 100px;
-    border: 0.5px solid var(--border);
-    background: var(--bg-outer);
-    white-space: nowrap;
-    cursor: default;
-    transition:
-      border-color 0.3s ease,
-      transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-      box-shadow 0.3s ease,
-      background 0.25s ease;
-  }
-
-  .tech-pill:hover {
-    border-color: var(--text-muted);
-    transform: translateY(-4px) scale(1.1);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    background: var(--bg-card);
-  }
-
-  .dark .tech-pill:hover {
-    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.2);
-  }
-
-  .tech-pill span {
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    transition: color 0.25s ease;
-  }
-
-  .tech-pill:hover span {
-    color: var(--text-primary);
-  }
-
-  .tech-pill img {
-    display: block;
-    border-radius: 3px;
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .tech-pill:hover img {
-    transform: scale(1.15) rotate(4deg);
-  }
-</style>

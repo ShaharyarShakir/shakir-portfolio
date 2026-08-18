@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { SocialLink } from '$lib/data/socials';
+  import type { SocialLink } from '$lib/types';
 
   interface Props {
     socials: SocialLink[];
@@ -8,13 +8,20 @@
   let { socials }: Props = $props();
 </script>
 
-<div class="social-grid">
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-12">
   {#each socials as social}
-    <a class="social-card group" href={social.href} target="_blank" rel="noopener">
-      <div class="social-top">
-        <span class="social-icon">{@html social.icon}</span>
+    <a
+      class="card card-compact relative flex flex-col justify-between gap-5 p-5 border border-sky-300/40 dark:border-amber-400/20 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl no-underline transition-all duration-300 group hover:-translate-y-1.5 hover:scale-102 hover:border-indigo-400 dark:hover:border-amber-400 shadow-md hover:shadow-xl"
+      href={social.href}
+      target="_blank"
+      rel="noopener"
+    >
+      <div class="flex items-start justify-between">
+        <span class="text-slate-900 dark:text-slate-100 flex transition-transform duration-350 group-hover:scale-118 group-hover:rotate-6">
+          {@html social.icon}
+        </span>
         <svg
-          class="social-arrow"
+          class="text-slate-400 dark:text-slate-500 shrink-0 transition-transform duration-350 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-slate-900 dark:group-hover:text-white"
           width="16"
           height="16"
           viewBox="0 0 16 16"
@@ -26,100 +33,18 @@
           <path d="M3 13L13 3M13 3H6M13 3v7" />
         </svg>
       </div>
-      <div class="social-body">
-        <span class="social-label">{social.label}</span>
-        <span class="social-handle">{social.handle}</span>
-        <span class="social-desc">{social.desc}</span>
+
+      <div class="flex flex-col gap-0.5">
+        <span class="text-sm font-semibold text-slate-900 dark:text-slate-100">
+          {social.label}
+        </span>
+        <span class="text-xs font-mono text-slate-600 dark:text-slate-300">
+          {social.handle}
+        </span>
+        <span class="text-[0.78rem] text-slate-500 dark:text-slate-400 mt-0.5">
+          {social.desc}
+        </span>
       </div>
     </a>
   {/each}
 </div>
-
-<style>
-  .social-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 3rem;
-  }
-
-  .social-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1.4rem;
-    padding: 1.25rem;
-    border: 0.5px solid var(--border);
-    border-radius: 14px;
-    background: var(--bg-card);
-    text-decoration: none;
-    transition:
-      transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-      border-color 0.3s ease,
-      box-shadow 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .social-card:hover {
-    transform: translateY(-6px) scale(1.02);
-    border-color: var(--text-muted);
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.09);
-  }
-
-  :global(.dark) .social-card:hover {
-    box-shadow: 0 12px 36px rgba(99, 102, 241, 0.15);
-  }
-
-  .social-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-
-  .social-icon {
-    color: var(--text-primary);
-    display: flex;
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .social-card:hover .social-icon {
-    transform: scale(1.18) rotate(6deg);
-  }
-
-  .social-arrow {
-    color: var(--text-muted);
-    flex-shrink: 0;
-    transition:
-      transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-      color 0.25s ease;
-  }
-
-  .social-card:hover .social-arrow {
-    transform: translate(4px, -4px) scale(1.15);
-    color: var(--text-primary);
-  }
-
-  .social-body {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
-
-  .social-label {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    transition: color 0.2s ease;
-  }
-
-  .social-handle {
-    font-size: 0.82rem;
-    color: var(--text-secondary);
-    font-family: monospace;
-  }
-
-  .social-desc {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-</style>
