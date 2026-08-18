@@ -1,16 +1,100 @@
-export type Tech = { icon: string; label: string };
-
-export type Project = {
-  image: string;
-  imageAlt: string;
-  title: string;
-  description: string;
-  techs: Tech[];
-  href?: string;
-  github?: string;
-};
+import type { Project } from '$lib/types';
 
 export const projects: Project[] = [
+  {
+    image: '/images/projects/brainrot-studio.png',
+    imageAlt: 'Brainrot Studio screenshot',
+    title: 'Brainrot Studio',
+    description: 'AI-powered video generation suite featuring a 5-stage creation wizard, Svelte 5 reactive timeline canvas, Gemini/Ollama AI gateway, and TTS voice synthesis pipeline.',
+    techs: [
+      { icon: 'https://cdn.simpleicons.org/svelte', label: 'Svelte 5' },
+      { icon: 'https://cdn.simpleicons.org/typescript', label: 'TypeScript' },
+      { icon: 'https://cdn.simpleicons.org/fastapi', label: 'FastAPI' },
+      { icon: 'https://cdn.simpleicons.org/python', label: 'Python' },
+      { icon: 'https://cdn.simpleicons.org/tailwindcss', label: 'Tailwind' },
+    ],
+    github: 'https://github.com/ShaharyarShakir/200-projects/tree/main/06__full-stack/brainrot-studio',
+  },
+  {
+    image: '/images/projects/gitscope.png',
+    imageAlt: 'GitScope screenshot',
+    title: 'GitScope',
+    description: 'Full-stack GitHub analytics and repository insights engine. Syncs contribution heatmaps, calculates commit streaks, and renders interactive ECharts metrics.',
+    techs: [
+      { icon: 'https://cdn.simpleicons.org/svelte', label: 'SvelteKit' },
+      { icon: 'https://cdn.simpleicons.org/typescript', label: 'TypeScript' },
+      { icon: 'https://cdn.simpleicons.org/postgresql', label: 'PostgreSQL' },
+      { icon: 'https://cdn.simpleicons.org/drizzle', label: 'Drizzle' },
+      { icon: 'https://cdn.simpleicons.org/apacheecharts', label: 'ECharts' },
+    ],
+    github: 'https://github.com/ShaharyarShakir/200-projects/tree/main/06__full-stack/github-dashboard',
+  },
+  {
+    image: '/images/projects/barbhq.png',
+    imageAlt: 'BarbHQ SaaS screenshot',
+    title: 'BarbHQ SaaS',
+    description: 'Multi-tenant SaaS platform for barber shop management, featuring appointment scheduling, client management, Vite web dashboard, and Expo mobile app.',
+    techs: [
+      { icon: 'https://cdn.simpleicons.org/react', label: 'React' },
+      { icon: 'https://cdn.simpleicons.org/vite', label: 'Vite' },
+      { icon: 'https://cdn.simpleicons.org/express', label: 'Express' },
+      { icon: 'https://cdn.simpleicons.org/mongodb', label: 'MongoDB' },
+      { icon: 'https://cdn.simpleicons.org/expo', label: 'Expo' },
+    ],
+    github: 'https://github.com/ShaharyarShakir/200-projects/tree/main/06__full-stack/barbhq',
+  },
+  {
+    image: '/images/projects/skilld.png',
+    imageAlt: 'Skilld screenshot',
+    title: 'Skilld',
+    description: 'Developer-first registry and explorer for reusable procedural AI agent skills with real-time search, code snippets, and Clerk authentication.',
+    techs: [
+      { icon: 'https://cdn.simpleicons.org/typescript', label: 'TypeScript' },
+      { icon: 'https://cdn.simpleicons.org/postgresql', label: 'PostgreSQL' },
+      { icon: 'https://cdn.simpleicons.org/firebase', label: 'Firebase' },
+      { icon: 'https://cdn.simpleicons.org/clerk', label: 'Clerk' },
+    ],
+    github: 'https://github.com/ShaharyarShakir/200-projects/tree/main/06__full-stack/skilld',
+  },
+  {
+    image: '/images/projects/videoforge.png',
+    imageAlt: 'VideoForge screenshot',
+    title: 'VideoForge Media Suite',
+    description: 'Desktop media processing tool built with Electron. Enables queued streaming downloads via yt-dlp, FFmpeg video transcoding, and offline media library management.',
+    techs: [
+      { icon: 'https://cdn.simpleicons.org/electron', label: 'Electron' },
+      { icon: 'https://cdn.simpleicons.org/react', label: 'React' },
+      { icon: 'https://cdn.simpleicons.org/typescript', label: 'TypeScript' },
+      { icon: 'https://cdn.simpleicons.org/ffmpeg', label: 'FFmpeg' },
+    ],
+    github: 'https://github.com/ShaharyarShakir/200-projects/tree/main/08__desktop-apps/videoforge',
+  },
+  {
+    image: '/images/projects/dispatcher.png',
+    imageAlt: 'Dispatcher HOS screenshot',
+    title: 'Dispatcher HOS & ELD',
+    description: 'Full-stack commercial truck dispatching, route optimization, and FMCSA Electronic Logging Device (ELD) daily log generator.',
+    techs: [
+      { icon: 'https://cdn.simpleicons.org/django', label: 'Django REST' },
+      { icon: 'https://cdn.simpleicons.org/python', label: 'Python' },
+      { icon: 'https://cdn.simpleicons.org/react', label: 'React' },
+      { icon: 'https://cdn.simpleicons.org/mapbox', label: 'Mapbox' },
+    ],
+    github: 'https://github.com/ShaharyarShakir/200-projects/tree/main/06__full-stack/dispatcher',
+  },
+  {
+    image: '/images/projects/wanderwise.png',
+    imageAlt: 'WanderWise AI screenshot',
+    title: 'WanderWise AI',
+    description: 'AI-powered mobile travel companion generating real-time personalized itineraries, smart weather adaptation, and local gem recommendations.',
+    techs: [
+      { icon: 'https://cdn.simpleicons.org/react', label: 'React Native' },
+      { icon: 'https://cdn.simpleicons.org/expo', label: 'Expo' },
+      { icon: 'https://cdn.simpleicons.org/typescript', label: 'TypeScript' },
+      { icon: 'https://cdn.simpleicons.org/openai', label: 'OpenAI' },
+    ],
+    github: 'https://github.com/ShaharyarShakir/mobile_apps/tree/main/wanderwise',
+  },
   {
     image: "/images/projects/sockploy.png",
     imageAlt: 'Sockploy screenshot',
@@ -30,7 +114,7 @@ export const projects: Project[] = [
     title: "Sql Agent",
     description: 'An interactive AI chatbot designed to help non-technical users query SQL databases using natural language. The system dynamically retrieves database schema definitions and translates user inquiries into precise SQL queries, executing them securely and formatting the results.',
     techs: [
-      {icon: 'https://cdn.simpleicons.org/nextdotjs', label: 'Nextjs'},
+      {icon: 'https://cdn.simpleicons.org/nextdotjs', label: 'Next.js'},
       {icon: 'https://cdn.simpleicons.org/mistralai', label: 'Mistral AI'},
       {icon: 'https://cdn.simpleicons.org/vercel', label: 'AI Agent SDK'}
     ],
