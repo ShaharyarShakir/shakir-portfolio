@@ -1,30 +1,51 @@
 {
-	"name": "svelte-app",
+	"name": "shakir-portfolio",
 	"private": true,
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"check": "svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"prepare": "svelte-kit sync || true && husky"
+	},
+	"lint-staged": {
+		"*.{js,ts,svelte}": [
+			"eslint --fix"
+		]
 	},
 	"dependencies": {
 		"@icons-pack/svelte-simple-icons": "^7.2.0",
 		"@tailwindcss/vite": "^4.3.1",
+		"@threlte/core": "^8.5.16",
+		"@threlte/extras": "^9.21.0",
+		"gsap": "^3.15.0",
 		"highlight.js": "^11.11.1",
 		"marked": "^18.0.5",
 		"simple-icons": "^16.23.0",
-		"tailwindcss": "^4.3.1"
+		"tailwindcss": "^4.3.1",
+		"three": "^0.185.1"
 	},
 	"devDependencies": {
+		"@eslint/js": "^10.0.1",
 		"@sveltejs/adapter-auto": "^7.0.1",
 		"@sveltejs/kit": "^2.70.2",
 		"@sveltejs/vite-plugin-svelte": "^7.3.0",
 		"@types/marked": "^6.0.0",
+		"@types/three": "^0.185.4",
+		"daisyui": "^5.7.18",
+		"eslint": "^10.8.1",
+		"eslint-plugin-svelte": "^3.23.0",
+		"globals": "^17.11.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^17.3.0",
 		"svelte": "^5.56.9",
 		"svelte-check": "^4.4.6",
 		"typescript": "^6.0.2",
+		"typescript-eslint": "^8.67.0",
 		"vite": "^8.2.1"
 	}
 }
