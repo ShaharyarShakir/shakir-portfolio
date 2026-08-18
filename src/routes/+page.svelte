@@ -8,72 +8,117 @@
 
   const latestPosts = getAllPosts().slice(0, 3);
 
-  const homeJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Shaharyar Shakir",
-    "jobTitle": "Software Engineer & DevOps",
-    "url": "https://shaharyarshakir.dev",
-    "sameAs": [
-      "https://github.com/ShaharyarShakir",
-      "https://linkedin.com/in/shaharyar-shakir-3674a027b"
-    ],
-    "knowsAbout": [
-      "Docker",
-      "Kubernetes",
-      "Next.js",
-      "SvelteKit",
-      "TypeScript",
-      "Python",
-      "DevOps",
-      "AI Agents"
-    ]
-  };
+  const homeJsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Shaharyar Shakir",
+      "jobTitle": "Full-Stack Web Developer, DevOps & MLOps Engineer",
+      "url": "https://shaharyarshakir.dev",
+      "image": "https://shaharyarshakir.dev/images/avatar.jpg",
+      "sameAs": [
+        "https://github.com/ShaharyarShakir",
+        "https://linkedin.com/in/shaharyar-shakir-3674a027b"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "PK",
+        "addressRegion": "Pakistan"
+      },
+      "knowsAbout": [
+        "Web Development",
+        "Full-Stack Web Engineering",
+        "DevOps Engineering",
+        "MLOps & Machine Learning Pipelines",
+        "React Native Mobile App Development",
+        "Docker & Kubernetes Infrastructure",
+        "SvelteKit & Next.js",
+        "FastAPI & Python"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Shaharyar Shakir — Web Dev, DevOps, MLOps & Mobile Development Services",
+      "description": "Custom Web Development, Cloud DevOps Pipelines, MLOps Solutions, and React Native Mobile App Development.",
+      "url": "https://shaharyarshakir.dev",
+      "logo": "https://shaharyarshakir.dev/images/avatar.jpg",
+      "image": "https://shaharyarshakir.dev/images/avatar.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "PK",
+        "addressRegion": "Pakistan"
+      },
+      "areaServed": ["Pakistan", "Worldwide", "Remote"],
+      "serviceType": [
+        "Web Development Services",
+        "DevOps Engineering Services",
+        "MLOps & Data Pipelines",
+        "Mobile App Development"
+      ],
+      "priceRange": "$$"
+    }
+  ];
 </script>
 
 <SEO jsonLd={homeJsonLd} />
 
 <Hero />
 <div class="relative">
-  <div
-    class="top-0 left-0 absolute bg-linear-to-r from-gray-100 via-gray-500 to-gray-100 w-full h-px"
-  ></div>
-  <section>
-    <div class="section-header">
-      <h2 class="section-title">Selected work</h2>
-      <a href="/project" class="see-all">see all →</a>
+  <div class="top-0 left-0 absolute bg-gradient-to-r from-sky-400/20 via-indigo-500/40 to-sky-400/20 w-full h-px"></div>
+  <section class="py-6">
+    <div class="flex items-baseline justify-between mb-6">
+      <h2 class="text-xs font-semibold tracking-widest uppercase text-[var(--text-muted)] m-0">
+        Selected work
+      </h2>
+      <a href="/project" class="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] no-underline transition-colors">
+        see all →
+      </a>
     </div>
-    <ProjectGrid {projects} limit={5} />
+    <ProjectGrid {projects} limit={3} />
   </section>
+
   <div class="relative">
-    <div
-      class="top-0 left-0 absolute bg-linear-to-r from-gray-100 via-gray-500 to-gray-100 w-full h-px"
-    ></div>
+    <div class="top-0 left-0 absolute bg-gradient-to-r from-sky-400/20 via-indigo-500/40 to-sky-400/20 w-full h-px"></div>
     <TechScroll />
   </div>
+
   {#if latestPosts.length > 0}
-    <section class="home-section">
-      <div class="section-header">
-        <h2 class="section-title">latest writing</h2>
-        <a href="/blog" class="see-all">see all →</a>
+    <section class="py-6">
+      <div class="flex items-baseline justify-between mb-6">
+        <h2 class="text-xs font-semibold tracking-widest uppercase text-[var(--text-muted)] m-0">
+          latest writing
+        </h2>
+        <a href="/blog" class="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] no-underline transition-colors">
+          see all →
+        </a>
       </div>
 
-      <div class="mini-post-list">
+      <div class="flex flex-col border-t border-[var(--border)]">
         {#each latestPosts as post}
-          <a class="mini-post" href="/blog/{post.slug}">
-            <div class="mini-post-left">
-              <span class="mini-post-title">{post.title}</span>
-              <span class="mini-post-desc">{post.description}</span>
+          <a
+            class="flex items-start justify-between gap-6 py-4 border-b border-[var(--border)] no-underline transition-all duration-250 hover:pl-2 group"
+            href="/blog/{post.slug}"
+          >
+            <div class="flex flex-col gap-1 flex-1 min-w-0">
+              <span class="text-sm font-semibold text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors truncate">
+                {post.title}
+              </span>
+              <span class="text-xs text-[var(--text-muted)] truncate">
+                {post.description}
+              </span>
             </div>
-            <div class="mini-post-right">
-              <span class="mini-post-date">
+            <div class="flex flex-col items-end gap-0.5 shrink-0">
+              <span class="text-xs text-[var(--text-muted)] whitespace-nowrap">
                 {new Date(post.date).toLocaleDateString("en-US", {
                   month: "short",
                   day: "numeric",
                   year: "numeric",
                 })}
               </span>
-              <span class="mini-post-read">{post.readingTime} min</span>
+              <span class="text-[0.7rem] text-[var(--text-muted)] opacity-80 whitespace-nowrap">
+                {post.readingTime} min
+              </span>
             </div>
           </a>
         {/each}
@@ -81,99 +126,3 @@
     </section>
   {/if}
 </div>
-
-<style>
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-  }
-  .section-title {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin: 0;
-  }
-  .see-all {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .see-all:hover {
-    color: var(--text-primary);
-  }
-  /* ── Mini post list ── */
-  .mini-post-list {
-    display: flex;
-    flex-direction: column;
-    border-top: 0.5px solid var(--border);
-  }
-
-  .mini-post {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1.5rem;
-    padding: 1rem 0;
-    border-bottom: 0.5px solid var(--border);
-    text-decoration: none;
-    transition: padding-left 0.25s ease;
-  }
-
-  .mini-post:hover {
-    padding-left: 6px;
-  }
-  .mini-post:hover .mini-post-title {
-    color: var(--text-primary);
-  }
-
-  .mini-post-left {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .mini-post-title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    transition: color 0.2s;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .mini-post-desc {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .mini-post-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 2px;
-    flex-shrink: 0;
-  }
-
-  .mini-post-date {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
-
-  .mini-post-read {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
-</style>
