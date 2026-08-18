@@ -19,80 +19,31 @@
 
 <SEO title="About" description={profileData.lead} jsonLd={aboutJsonLd} />
 
-<div class="about-wrap">
+<div class="py-8 pb-12">
   <!-- Header -->
-  <div class="about-header">
-    <h1 class="about-title">About</h1>
-    <p class="about-lead">
+  <div class="mb-14 pb-10 border-b border-[var(--border)]">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-[var(--text-primary)] tracking-tight mb-4">
+      About
+    </h1>
+    <p class="text-base sm:text-lg leading-relaxed text-[var(--text-secondary)] max-w-xl mb-5">
       {profileData.lead}
     </p>
-    <div class="about-links">
-      <a href={profileData.github} target="_blank" rel="noopener">
+    <div class="flex gap-5">
+      <a href={profileData.github} target="_blank" rel="noopener" class="text-sm font-medium text-[var(--text-muted)] hover:text-[var(--text-primary)] no-underline transition-colors">
         github ↗
       </a>
-      <a href={profileData.linkedin} target="_blank" rel="noopener">
+      <a href={profileData.linkedin} target="_blank" rel="noopener" class="text-sm font-medium text-[var(--text-muted)] hover:text-[var(--text-primary)] no-underline transition-colors">
         linkedin ↗
       </a>
     </div>
   </div>
 
   <!-- Timeline -->
-  <div class="timeline-label">the journey</div>
+  <div class="text-xs font-semibold tracking-widest uppercase text-[var(--text-muted)] mb-6">
+    the journey
+  </div>
   <Timeline timeline={profileData.timeline} />
 
   <!-- Currently -->
   <Currently items={profileData.currently} />
 </div>
-
-<style>
-  .about-wrap {
-    padding: 2rem 0 3rem;
-  }
-
-  .about-header {
-    margin-bottom: 3.5rem;
-    padding-bottom: 2.5rem;
-    border-bottom: 0.5px solid var(--border);
-  }
-
-  .about-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
-    margin: 0 0 1rem;
-  }
-
-  .about-lead {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: var(--text-secondary);
-    max-width: 540px;
-    margin: 0 0 1.2rem;
-  }
-
-  .about-links {
-    display: flex;
-    gap: 1.2rem;
-  }
-
-  .about-links a {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .about-links a:hover {
-    color: var(--text-primary);
-  }
-
-  .timeline-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 1.5rem;
-  }
-</style>
