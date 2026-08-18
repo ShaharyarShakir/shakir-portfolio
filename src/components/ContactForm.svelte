@@ -1,36 +1,29 @@
 <script lang="ts">
-  let form = $state({ name: "", email: "", subject: "", message: "" });
-  let status: "idle" | "sending" | "sent" | "error" = $state("idle");
+  import { sendContactMessage } from '$lib/services/contactService';
+
+  let form = $state({ name: '', email: '', subject: '', message: '' });
+  let status: 'idle' | 'sending' | 'sent' | 'error' = $state('idle');
 
   async function handleSubmit() {
     if (!form.name || !form.email || !form.message) return;
-    status = "sending";
-    try {
-      const res = await fetch("https://formspree.io/f/xykaoknk", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-      if (res.ok) {
-        status = "sent";
-        form = { name: "", email: "", subject: "", message: "" };
-      } else {
-        status = "error";
-      }
-    } catch {
-      status = "error";
+    status = 'sending';
+    const result = await sendContactMessage(form);
+    if (result.success) {
+      status = 'sent';
+      form = { name: '', email: '', subject: '', message: '' };
+    } else {
+      status = 'error';
     }
   }
 </script>
 
-<div class="form-section">
-  <p class="form-label">Send a message</p>
+<div class="pt-10 border-t border-[var(--border)] mb-10">
+  <p class="text-xs font-semibold tracking-widest uppercase text-[var(--text-muted)] mb-6">
+    Send a message
+  </p>
 
   {#if status === "sent"}
-    <div class="form-success">
+    <div class="alert alert-success shadow-lg max-w-xl text-[var(--text-primary)] flex items-center gap-3">
       <svg
         width="20"
         height="20"
@@ -44,95 +37,85 @@
         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
         <polyline points="22 4 12 14.01 9 11.01" />
       </svg>
-      message sent — i'll get back to you soon.
+      <span>message sent — i'll get back to you soon.</span>
     </div>
   {:else}
-    <div class="form-wrap">
-      <div class="form-row">
-        <div class="form-field">
-          <label for="name">name</label>
+    <div class="flex flex-col gap-4 max-w-xl">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="form-control w-full">
+          <label for="name" class="label text-xs font-semibold tracking-wider text-[var(--text-secondary)] lowercase py-1">
+            name
+          </label>
           <input
             id="name"
             type="text"
             placeholder="your name"
+            class="input input-bordered w-full rounded-xl bg-[var(--bg-card)] text-[var(--text-primary)] placeholder:text-slate-400 dark:placeholder:text-slate-500 border-[var(--border)] focus:outline-hidden focus:border-indigo-500 transition-all"
             bind:value={form.name}
             disabled={status === "sending"}
           />
         </div>
-        <div class="form-field">
-          <label for="email">email</label>
+
+        <div class="form-control w-full">
+          <label for="email" class="label text-xs font-semibold tracking-wider text-[var(--text-secondary)] lowercase py-1">
+            email
+          </label>
           <input
             id="email"
             type="email"
             placeholder="your@email.com"
+            class="input input-bordered w-full rounded-xl bg-[var(--bg-card)] text-[var(--text-primary)] placeholder:text-slate-400 dark:placeholder:text-slate-500 border-[var(--border)] focus:outline-hidden focus:border-indigo-500 transition-all"
             bind:value={form.email}
             disabled={status === "sending"}
           />
         </div>
       </div>
 
-      <div class="form-field">
-        <label for="subject">subject</label>
+      <div class="form-control w-full">
+        <label for="subject" class="label text-xs font-semibold tracking-wider text-[var(--text-secondary)] lowercase py-1">
+          subject
+        </label>
         <input
           id="subject"
           type="text"
           placeholder="what's this about?"
+          class="input input-bordered w-full rounded-xl bg-[var(--bg-card)] text-[var(--text-primary)] placeholder:text-slate-400 dark:placeholder:text-slate-500 border-[var(--border)] focus:outline-hidden focus:border-indigo-500 transition-all"
           bind:value={form.subject}
           disabled={status === "sending"}
         />
       </div>
 
-      <div class="form-field">
-        <label for="message">message</label>
+      <div class="form-control w-full">
+        <label for="message" class="label text-xs font-semibold tracking-wider text-[var(--text-secondary)] lowercase py-1">
+          message
+        </label>
         <textarea
           id="message"
           rows="5"
           placeholder="tell me what you're working on..."
+          class="textarea textarea-bordered w-full rounded-xl bg-[var(--bg-card)] text-[var(--text-primary)] placeholder:text-slate-400 dark:placeholder:text-slate-500 border-[var(--border)] focus:outline-hidden focus:border-indigo-500 transition-all"
           bind:value={form.message}
           disabled={status === "sending"}
         ></textarea>
       </div>
 
       {#if status === "error"}
-        <p class="form-error">
+        <p class="text-xs text-rose-500 m-0">
           something went wrong — try emailing directly instead.
         </p>
       {/if}
 
       <button
-        class="form-submit"
+        class="inline-flex items-center justify-center rounded-full self-start px-6 py-2.5 gap-2 text-sm font-semibold transition-all duration-200 bg-sky-900 dark:bg-amber-400 text-white dark:text-slate-950 hover:opacity-90 shadow-md disabled:bg-slate-300 dark:disabled:bg-slate-800 disabled:text-slate-500 dark:disabled:text-slate-500 disabled:cursor-not-allowed disabled:shadow-none"
         onclick={handleSubmit}
-        disabled={status === "sending" ||
-          !form.name ||
-          !form.email ||
-          !form.message}
+        disabled={status === "sending" || !form.name || !form.email || !form.message}
       >
         {#if status === "sending"}
-          <svg
-            class="spin"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-          >
-            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-          </svg>
+          <span class="loading loading-spinner loading-xs"></span>
           sending...
         {:else}
           send message
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="22" y1="2" x2="11" y2="13" />
             <polygon points="22 2 15 22 11 13 2 9 22 2" />
           </svg>
@@ -141,157 +124,3 @@
     </div>
   {/if}
 </div>
-
-<style>
-  .form-section {
-    padding-top: 2.5rem;
-    border-top: 0.5px solid var(--border);
-    margin-bottom: 2.5rem;
-  }
-
-  .form-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin: 0 0 1.5rem;
-  }
-
-  .form-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    max-width: 560px;
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  @media (max-width: 500px) {
-    .form-row {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .form-field label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    text-transform: lowercase;
-  }
-
-  .form-field input,
-  .form-field textarea {
-    background: var(--bg-outer);
-    border: 0.5px solid var(--border);
-    border-radius: 10px;
-    padding: 11px 14px;
-    font-size: 0.9rem;
-    color: var(--text-primary);
-    font-family: inherit;
-    width: 100%;
-    resize: none;
-    transition:
-      border-color 0.25s ease,
-      box-shadow 0.25s ease,
-      background 0.25s ease;
-    outline: none;
-  }
-
-  .form-field input::placeholder,
-  .form-field textarea::placeholder {
-    color: var(--text-muted);
-  }
-
-  .form-field input:focus,
-  .form-field textarea:focus {
-    border-color: #6366f1;
-    background: var(--bg-card);
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
-  }
-
-  .form-field input:disabled,
-  .form-field textarea:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .form-submit {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    align-self: flex-start;
-    padding: 10px 22px;
-    border-radius: 9999px;
-    border: 0.5px solid var(--border);
-    background: var(--text-primary);
-    color: var(--bg-card);
-    font-size: 0.875rem;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    transition:
-      opacity 0.2s ease,
-      transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-      box-shadow 0.3s ease;
-  }
-
-  .form-submit:hover:not(:disabled) {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
-  }
-
-  .form-submit:hover:not(:disabled) svg {
-    transform: translateX(4px) translateY(-2px);
-  }
-
-  .form-submit svg {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .form-submit:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .form-success {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    padding: 14px 16px;
-    border: 0.5px solid var(--border);
-    border-radius: 10px;
-    background: var(--bg-outer);
-    max-width: 560px;
-  }
-
-  .form-error {
-    font-size: 0.82rem;
-    color: #e05a5a;
-    margin: 0;
-  }
-
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .spin {
-    animation: spin 0.8s linear infinite;
-  }
-</style>

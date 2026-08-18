@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { CurrentlyItem } from '$lib/data/profile';
+  import type { CurrentlyItem } from '$lib/types';
 
   interface Props {
     items: CurrentlyItem[];
@@ -8,103 +8,23 @@
   let { items }: Props = $props();
 </script>
 
-<div class="currently">
-  <div class="currently-label flex items-center gap-2">
-    <span class="live-dot"></span>
+<div class="border-t border-sky-300/40 dark:border-amber-400/20 pt-10">
+  <div class="text-xs font-semibold tracking-widest uppercase text-slate-500 dark:text-slate-400 mb-5 flex items-center gap-2">
+    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-status-pulse"></span>
     Currently
   </div>
-  <div class="currently-grid">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
     {#each items as item}
-      <div class="currently-item group">
-        <span class="currently-key">{item.key}</span>
-        <span class="currently-val">{item.val}</span>
+      <div
+        class="flex flex-col gap-1 p-3.5 rounded-xl border border-transparent hover:border-sky-300/40 dark:hover:border-amber-400/20 bg-transparent hover:bg-white/60 dark:hover:bg-slate-900/60 backdrop-blur-xs transition-all duration-250 hover:-translate-y-0.5 group"
+      >
+        <span class="text-[0.7rem] font-semibold tracking-wider uppercase text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">
+          {item.key}
+        </span>
+        <span class="text-sm font-medium text-slate-900 dark:text-slate-100">
+          {item.val}
+        </span>
       </div>
     {/each}
   </div>
 </div>
-
-<style>
-  .currently {
-    border-top: 0.5px solid var(--border);
-    padding-top: 2.5rem;
-  }
-
-  .currently-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .live-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background-color: #22c55e;
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
-    animation: radar-ping 2.2s ease-in-out infinite;
-  }
-
-  @keyframes radar-ping {
-    0% {
-      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
-    }
-    70% {
-      box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
-    }
-    100% {
-      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
-    }
-  }
-
-  .currently-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem 1.5rem;
-  }
-
-  .currently-item {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: 0.5px solid transparent;
-    transition:
-      transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-      border-color 0.25s ease,
-      background 0.25s ease,
-      box-shadow 0.25s ease;
-  }
-
-  .currently-item:hover {
-    transform: translateY(-2px);
-    border-color: var(--border);
-    background: var(--bg-outer);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  }
-
-  .currently-key {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    transition: color 0.2s ease;
-  }
-
-  .currently-item:hover .currently-key {
-    color: var(--text-secondary);
-  }
-
-  .currently-val {
-    font-size: 0.9rem;
-    color: var(--text-primary);
-    font-weight: 500;
-  }
-</style>
