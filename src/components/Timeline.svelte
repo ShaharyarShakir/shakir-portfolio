@@ -1,173 +1,107 @@
 <script lang="ts">
-  import type { TimelineEntry } from '$lib/data/profile';
+  import type { TimelineEntry } from '$lib/types';
+  import { onMount } from 'svelte';
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
   interface Props {
     timeline: TimelineEntry[];
   }
 
   let { timeline }: Props = $props();
+  let timelineContainer: HTMLElement | undefined = $state();
+
+  onMount(() => {
+    let ctx: gsap.Context | undefined;
+    if (typeof window !== 'undefined') {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReducedMotion && timelineContainer) {
+        gsap.registerPlugin(ScrollTrigger);
+
+        ctx = gsap.context(() => {
+          const items = timelineContainer?.querySelectorAll('.timeline-item');
+          items?.forEach((item) => {
+            gsap.fromTo(
+              item,
+              { opacity: 0, y: 32, scale: 0.97 },
+              {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.75,
+                ease: 'power2.out',
+                scrollTrigger: {
+                  trigger: item,
+                  start: 'top 85%',
+                  toggleActions: 'play none none reverse',
+                },
+              }
+            );
+          });
+
+          const lines = timelineContainer?.querySelectorAll('.timeline-line');
+          lines?.forEach((line) => {
+            gsap.fromTo(
+              line,
+              { scaleY: 0, transformOrigin: 'top center' },
+              {
+                scaleY: 1,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: line,
+                  start: 'top 82%',
+                  end: 'bottom 60%',
+                  scrub: 0.5,
+                },
+              }
+            );
+          });
+        }, timelineContainer);
+      }
+    }
+
+    return () => {
+      ctx?.revert();
+    };
+  });
 </script>
 
-<div class="timeline">
+<div class="flex flex-col mb-14 group/timeline" bind:this={timelineContainer}>
   {#each timeline as entry, i}
-    <div class="timeline-item">
-      <!-- Line + dot -->
-      <div class="timeline-spine">
-        <div class="timeline-dot"></div>
+    <div
+      class="timeline-item grid grid-cols-[28px_1fr] gap-x-5 transition-all duration-300 group/item hover:translate-x-2 group-hover/timeline:opacity-40 group-hover/item:!opacity-100"
+    >
+      <!-- Spine -->
+      <div class="flex flex-col items-center pt-1">
+        <div
+          class="timeline-dot w-2.5 h-2.5 rounded-full border-2 border-slate-900 dark:border-amber-400 bg-white dark:bg-slate-900 shrink-0 transition-all duration-300 group-hover/item:scale-150 group-hover/item:bg-slate-900 dark:group-hover/item:bg-amber-400 group-hover/item:shadow-md"
+        ></div>
         {#if i < timeline.length - 1}
-          <div class="timeline-line"></div>
+          <div class="timeline-line w-px flex-1 bg-sky-300/40 dark:bg-amber-400/20 my-1.5 min-h-8"></div>
         {/if}
       </div>
 
       <!-- Content -->
-      <div class="timeline-content">
-        <span class="timeline-year">{entry.year}</span>
-        <h3 class="timeline-title">{entry.title}</h3>
-        <p class="timeline-body">{entry.body}</p>
-        <div class="timeline-tags">
+      <div class="p-4 -ml-4 mb-4 rounded-2xl transition-all duration-300 group-hover/item:bg-white/70 dark:group-hover/item:bg-slate-900/60 backdrop-blur-md">
+        <span class="text-xs font-semibold tracking-wider text-slate-500 dark:text-slate-400 block mb-1.5 transition-colors">
+          {entry.year}
+        </span>
+        <h3 class="text-base font-semibold text-slate-900 dark:text-slate-100 m-0 mb-2 leading-snug transition-transform group-hover/item:translate-x-1">
+          {entry.title}
+        </h3>
+        <p class="text-sm leading-relaxed text-slate-700 dark:text-slate-300 m-0 mb-3 transition-colors">
+          {entry.body}
+        </p>
+        <div class="flex flex-wrap gap-1.5">
           {#each entry.tags as tag}
-            <span class="tag">{tag}</span>
+            <span
+              class="badge badge-sm badge-outline font-semibold tracking-wider text-[0.7rem] bg-white/60 dark:bg-slate-800/60 border-sky-300/40 dark:border-amber-400/20 text-slate-800 dark:text-slate-200 transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-400 dark:hover:border-amber-400"
+            >
+              {tag}
+            </span>
           {/each}
         </div>
       </div>
     </div>
   {/each}
 </div>
-
-<style>
-  .timeline {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 3.5rem;
-  }
-
-  .timeline:hover .timeline-item {
-    opacity: 0.45;
-  }
-
-  .timeline:hover .timeline-item:hover {
-    opacity: 1;
-  }
-
-  .timeline-item {
-    display: grid;
-    grid-template-columns: 28px 1fr;
-    gap: 0 1.25rem;
-    transition: transform 0.25s ease, opacity 0.25s ease;
-  }
-
-  .timeline-item:hover {
-    transform: translateX(8px) scale(1.02);
-  }
-
-  .timeline-spine {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 4px;
-  }
-
-  .timeline-dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    border: 2px solid var(--text-primary);
-    background: var(--bg-card);
-    flex-shrink: 0;
-    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-  }
-
-  .timeline-item:hover .timeline-dot {
-    background: var(--text-primary);
-    transform: scale(1.5);
-    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.05), 0 0 18px rgba(255, 255, 255, 0.08);
-  }
-
-  .timeline-line {
-    width: 1px;
-    flex: 1;
-    background: var(--border);
-    margin: 6px 0;
-    min-height: 32px;
-  }
-
-  .timeline-content {
-    padding: 0.9rem 1rem 2rem;
-    margin-left: -1rem;
-    border-radius: 12px;
-    transition: background 0.25s ease, transform 0.25s ease;
-  }
-
-  .timeline-item:hover .timeline-content {
-    background: var(--bg-card);
-  }
-
-  .timeline-year {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    color: var(--text-muted);
-    display: block;
-    margin-bottom: 0.35rem;
-    transition: color 0.25s ease;
-  }
-
-  .timeline-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 0 0 0.5rem;
-    line-height: 1.3;
-    transition: color 0.25s ease, transform 0.25s ease;
-  }
-
-  .timeline-body {
-    font-size: 0.9rem;
-    line-height: 1.75;
-    color: var(--text-secondary);
-    margin: 0 0 0.8rem;
-    transition: color 0.25s ease;
-  }
-
-  .timeline-item:hover .timeline-title {
-    transform: translateX(2px);
-  }
-
-  .timeline-item:hover .timeline-body {
-    color: var(--text-primary);
-  }
-
-  .timeline-item:hover .timeline-year {
-    color: var(--text-secondary);
-  }
-
-  .timeline-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .tag {
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: var(--text-muted);
-    border: 0.5px solid var(--border);
-    border-radius: 4px;
-    padding: 2px 8px;
-    background: var(--bg-outer);
-    transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
-  }
-
-  .timeline-item:hover .tag {
-    transform: translateY(-2px);
-    cursor: pointer;
-    border-color: var(--text-muted);
-    color: var(--text-secondary);
-  }
-
-  .tag:hover {
-    transform: translateY(-3px);
-    cursor: pointer;
-  }
-</style>
