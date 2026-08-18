@@ -25,36 +25,52 @@
   jsonLd={blogJsonLd}
 />
 
-<div class="blog-wrap">
-  <div class="blog-header">
-    <h1 class="blog-title">Blog</h1>
-    <p class="blog-lead">Writing about DevOps, MLOps, and building things.</p>
+<div class="py-8 pb-12">
+  <div class="mb-10 pb-8 border-b border-[var(--border)]">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-[var(--text-primary)] tracking-tight mb-2">
+      Blog
+    </h1>
+    <p class="text-sm text-[var(--text-muted)] m-0">
+      Writing about DevOps, MLOps, and building things.
+    </p>
   </div>
 
-  <div class="post-list">
+  <div class="flex flex-col border-t border-[var(--border)]">
     {#each posts as post}
-      <a class="post-row" href="/blog/{post.slug}">
-        <div class="post-row-main">
-          <div class="post-row-left">
-            <span class="post-row-title">{post.title}</span>
-            <span class="post-row-desc">{post.description}</span>
-            <div class="post-row-tags">
+      <a
+        class="block py-5 border-b border-[var(--border)] no-underline transition-all duration-300 hover:pl-2 group"
+        href="/blog/{post.slug}"
+      >
+        <div class="flex flex-col sm:flex-row items-start justify-between gap-4">
+          <div class="flex flex-col gap-1.5 flex-1 min-w-0">
+            <span class="text-base font-semibold text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors leading-snug">
+              {post.title}
+            </span>
+            <span class="text-xs leading-relaxed text-[var(--text-muted)] line-clamp-2">
+              {post.description}
+            </span>
+            <div class="flex flex-wrap gap-1.5 mt-1">
               {#each post.tags as tag}
-                <span class="tag">{tag}</span>
+                <span class="badge badge-xs badge-outline text-[0.68rem] px-2 py-1 text-[var(--text-muted)] border-[var(--border)]">
+                  {tag}
+                </span>
               {/each}
             </div>
           </div>
-          <div class="post-row-right">
-            <span class="post-date">
+
+          <div class="flex sm:flex-col items-center sm:items-end gap-2 sm:gap-1 shrink-0">
+            <span class="text-xs text-[var(--text-muted)] whitespace-nowrap">
               {new Date(post.date).toLocaleDateString("en-US", {
                 month: "short",
                 day: "numeric",
                 year: "numeric",
               })}
             </span>
-            <span class="post-read">{post.readingTime} min read</span>
+            <span class="text-[0.72rem] text-[var(--text-muted)] opacity-80 whitespace-nowrap">
+              {post.readingTime} min read
+            </span>
             <svg
-              class="post-arrow"
+              class="text-[var(--text-muted)] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200 hidden sm:block mt-1"
               width="16"
               height="16"
               viewBox="0 0 24 24"
@@ -70,170 +86,9 @@
         </div>
       </a>
     {:else}
-      <div class="no-posts">
+      <div class="py-12 text-[var(--text-muted)] text-sm">
         <p>no posts yet — check back soon.</p>
       </div>
     {/each}
   </div>
 </div>
-
-<style>
-  .blog-wrap {
-    padding: 2rem 0 3rem;
-  }
-
-  /* ── Header ── */
-  .blog-header {
-    margin-bottom: 2.5rem;
-    padding-bottom: 2rem;
-    border-bottom: 0.5px solid var(--border);
-  }
-
-  .blog-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
-    margin: 0 0 0.4rem;
-  }
-
-  .blog-lead {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin: 0;
-  }
-
-  /* ── List ── */
-  .post-list {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .post-row {
-    display: block;
-    padding: 1.4rem 0;
-    border-bottom: 0.5px solid var(--border);
-    text-decoration: none;
-    transition: padding-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .post-row:first-child {
-    border-top: 0.5px solid var(--border);
-  }
-
-  .post-row:hover {
-    padding-left: 8px;
-  }
-  .post-row:hover .post-row-title {
-    color: var(--text-primary);
-  }
-  .post-row:hover .post-arrow {
-    opacity: 1;
-    transform: translateX(3px);
-  }
-
-  .post-row-main {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1.5rem;
-  }
-
-  /* ── Left ── */
-  .post-row-left {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .post-row-title {
-    font-size: 0.975rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    transition: color 0.2s;
-    line-height: 1.4;
-  }
-
-  .post-row-desc {
-    font-size: 0.845rem;
-    color: var(--text-muted);
-    line-height: 1.5;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-
-  .post-row-tags {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-    margin-top: 4px;
-  }
-
-  .tag {
-    font-size: 0.68rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    border: 0.5px solid var(--border);
-    border-radius: 4px;
-    padding: 1px 7px;
-    background: var(--bg-outer);
-    letter-spacing: 0.02em;
-  }
-
-  /* ── Right ── */
-  .post-row-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 4px;
-    flex-shrink: 0;
-  }
-
-  .post-date {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
-
-  .post-read {
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
-
-  .post-arrow {
-    color: var(--text-muted);
-    opacity: 0;
-    margin-top: 4px;
-    transition:
-      opacity 0.2s ease,
-      transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* ── Empty ── */
-  .no-posts {
-    padding: 3rem 0;
-    color: var(--text-muted);
-    font-size: 0.875rem;
-  }
-
-  /* ── Mobile ── */
-  @media (max-width: 500px) {
-    .post-row-main {
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-    .post-row-right {
-      flex-direction: row;
-      align-items: center;
-      gap: 8px;
-    }
-    .post-arrow {
-      display: none;
-    }
-  }
-</style>

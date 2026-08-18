@@ -4,7 +4,7 @@
   import ToastContainer from "../components/ToastContainer.svelte";
   import AmbientBackground from "../components/AmbientBackground.svelte";
   import { page } from "$app/state";
-  import "../../app.css";
+  import "../app.css";
 
   let { children } = $props();
 
@@ -14,19 +14,19 @@
 
 <svelte:window bind:scrollY />
 
-<div class="app-viewport-wrapper">
-  <!-- Modular Whole-Page Ambient Background (Grid, Glow Orbs, Side Wings) -->
+<div class="relative bg-[#071322] dark:bg-[#08090D] min-h-screen overflow-x-hidden">
+  <!-- Whole-Page Ambient Background -->
   <AmbientBackground />
 
-  <div
-    class="relative mx-auto w-full max-w-4xl min-h-screen app-card-container"
-    style="background-color: var(--bg-card); color: var(--text-primary);"
-  >
-    <Navbar {scrolled} />
+  <!-- Sticky Navbar -->
+  <Navbar {scrolled} />
 
+  <div
+    class="relative mx-auto w-full max-w-4xl min-h-screen z-10 bg-[var(--bg-card)] text-[var(--text-primary)] backdrop-blur-xl border-x border-sky-300/40 dark:border-amber-400/20 shadow-2xl shadow-sky-950/20 dark:shadow-amber-500/10"
+  >
     <main class="px-4 md:px-8 pt-20 pb-10">
       {#key page.url.pathname}
-        <div class="page-transition">
+        <div class="animate-page-fade-slide">
           {@render children()}
         </div>
       {/key}
@@ -36,39 +36,3 @@
     <ToastContainer />
   </div>
 </div>
-
-<style>
-  .app-viewport-wrapper {
-    position: relative;
-    background-color: var(--bg-outer);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  .app-card-container {
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
-    z-index: 10;
-  }
-
-  :global(.dark) .app-card-container {
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
-  }
-
-  .page-transition {
-    animation: page-fade-slide 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes page-fade-slide {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>
-
-
-
